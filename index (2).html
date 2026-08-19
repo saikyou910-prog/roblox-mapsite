@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox トレードサイト - ホーム</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .app-container { background-color: white; width: 100%; max-width: 450px; min-height: 500px; border-radius: 20px; padding: 20px; box-sizing: border-box; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+        
+        /* ログインボタン（リンク） */
+        .btn-login { display: inline-block; padding: 10px 16px; background-color: white; border: 2px solid #54bbf0; color: #54bbf0; text-decoration: none; font-weight: bold; border-radius: 6px; }
+        .btn-login:hover { background-color: #54bbf0; color: white; }
+        
+        /* ログイン後のユーザー表示 */
+        .user-box { text-align: center; }
+        .avatar { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #54bbf0; }
+        .username { font-size: 12px; font-weight: bold; margin-top: 4px; }
+        .btn-logout { background: none; border: none; color: red; font-size: 11px; cursor: pointer; text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <div class="header">
+            <h2>🏠 ホーム画面</h2>
+            
+            <!-- ここにログインボタンまたはユーザー情報が入る -->
+            <div id="userArea"></div>
+        </div>
+
+        <div style="background: #fafafa; padding: 15px; border-radius: 8px;">
+            <p>Roblox トレードサイトへようこそ！</p>
+            <p style="font-size: 12px; color: #666;">右上のボタンから別ページのログイン画面に移動できます。</p>
+        </div>
+    </div>
+
+    <script>
+        // ページが開いたときにログイン情報を確認する処理
+        function checkLogin() {
+            const userArea = document.getElementById('userArea');
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            const username = localStorage.getItem('username');
+            const userId = localStorage.getItem('userId');
+
+            if (isLoggedIn === 'true') {
+                // ログインしている場合：アイコンとユーザー名を表示
+                userArea.innerHTML = `
+                    <div class="user-box">
+                        <img class="avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=${userId}" alt="アバター">
+                        <div class="username">${username}</div>
+                        <button class="btn-logout" onclick="logout()">ログアウト</button>
+                    </div>
+                `;
+            } else {
+                // 未ログインの場合：login.html へのリンクボタンを表示
+                userArea.innerHTML = `
+                    <a href="login.html" class="btn-login">🔑 ログイン</a>
+                `;
+            }
+        }
+
+        // ログアウト処理
+        function logout() {
+            localStorage.clear(); // 保存データを消去
+            checkLogin(); // 表示を更新
+        }
+
+        // 初期実行
+        checkLogin();
+    </script>
+</body>
+</html>
