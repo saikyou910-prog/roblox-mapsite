@@ -22,32 +22,32 @@
         <h2>🔑 アカウント連携・ログイン</h2>
         
         <div style="background: #eef7ff; padding: 10px; font-size: 12px; color: #0056b3; border-radius: 6px;">
-            <strong>テスト用入力データ:</strong><br>
-            ユーザーID: <code>12345678</code><br>
+            <strong>ログイン可能データ:</strong><br>
+            ユーザーID: <code>5410019143</code>（Roas0758）<br>
             連携コード: <code>999888</code>
         </div>
 
         <div class="form-group">
             <label>Roblox ユーザーID（数字）</label>
-            <input type="number" id="userId" placeholder="例: 12345678">
+            <input type="number" id="userId" placeholder="例: 5410019143" value="5410019143">
         </div>
 
         <div class="form-group">
             <label>マップ内発行コード（6桁）</label>
-            <input type="text" id="authCode" placeholder="例: 999888">
+            <input type="text" id="authCode" placeholder="例: 999888" value="999888">
         </div>
 
         <button class="btn-submit" onclick="doLogin()">検証してホームへ戻る</button>
     </div>
 
     <script>
-        // テスト用アカウントデータ
+        // 設定されたアカウントデータ
         const testUsers = [
-            { id: "12345678", code: "999888", name: "Player_A" },
-            { id: "87654321", code: "111222", name: "Player_B" }
+            { id: "5410019143", code: "999888", name: "Roas0758" },
+            { id: "12345678", code: "999888", name: "Player_A" }
         ];
 
-        function doLogin() {
+        async function doLogin() {
             const idInput = document.getElementById('userId').value.trim();
             const codeInput = document.getElementById('authCode').value.trim();
 
@@ -60,12 +60,27 @@
             const match = testUsers.find(u => u.id === idInput && u.code === codeInput);
 
             if (match) {
-                alert("🎉 ログイン成功！ホーム画面に移動します。");
+                alert(`🎉 ログイン成功！${match.name} さん、ホーム画面に移動します。`);
                 
-                // ブラウザにログイン情報を保存（ここがポイント！）
-                localStorage.setItem('isLoggedIn', 'true');
-                localStorage.setItem('username', match.name);
-                localStorage.setItem('userId', match.id);
+                // 本物のRobloxアバター画像取得を試みる（失敗した場合は代行画像）
+                let avatarUrl = `https://tr.rbxcdn.com/30day-avatar-headshot`;
+                try {
+                    const thumbRes = await fetch(`https://corsproxy.io/?https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${match.id}&size=150x150&format=Png&isCircular=true`);
+                    if (thumbRes.ok) {
+                        const thumbData = await thumbRes.json();
+                        if (thumbData.data && thumbData.data[0]) {
+                            avatarUrl = thumbData.data[0].imageUrl;
+                        }
+                    }
+                } catch(e) {}
+
+                // ホーム画面用にデータを保存
+                const sessionData = {
+                    userId: match.id,
+                    displayName: match.name,
+                    avatarUrl: avatarUrl
+                };
+                localStorage.setItem('robloxUser', JSON.stringify(sessionData));
 
                 // ホーム画面（index.html）へ移動
                 window.location.href = 'index.html';
