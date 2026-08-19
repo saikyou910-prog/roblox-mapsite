@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roblox Map Site</title>
+    <title>Sakura Studio</title>
     <style>
         * {
             box-sizing: border-box;
@@ -15,6 +15,8 @@
             background-color: #0f172a;
             color: #f8fafc;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         /* ヘッダーナビゲーション */
@@ -31,7 +33,7 @@
         .logo {
             font-size: 1.5rem;
             font-weight: bold;
-            color: #38bdf8;
+            color: #f472b6;
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -45,7 +47,7 @@
         }
 
         .login-btn {
-            background-color: #2563eb;
+            background-color: #ec4899;
             color: white;
             padding: 8px 16px;
             border-radius: 6px;
@@ -55,7 +57,7 @@
         }
 
         .login-btn:hover {
-            background-color: #1d4ed8;
+            background-color: #db2777;
         }
 
         /* ログイン済みのユーザープロファイル表示 */
@@ -97,52 +99,187 @@
 
         /* メインコンテンツ */
         main {
-            max-width: 1200px;
+            flex: 1;
+            max-width: 800px;
+            width: 100%;
             margin: 2rem auto;
             padding: 0 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
         }
 
-        .map-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .map-card {
+        /* 製作中エリア */
+        .construction-card {
             background-color: #1e293b;
-            border-radius: 10px;
-            overflow: hidden;
             border: 1px solid #334155;
-            transition: transform 0.2s, box-shadow 0.2s;
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
         }
 
-        .map-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        .construction-icon {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
         }
 
-        .map-img {
-            width: 100%;
-            height: 160px;
-            background-color: #334155;
-            object-fit: cover;
-        }
-
-        .map-info {
-            padding: 15px;
-        }
-
-        .map-title {
-            font-size: 1.1rem;
+        .construction-title {
+            font-size: 1.8rem;
             font-weight: bold;
-            margin-bottom: 8px;
             color: #f1f5f9;
+            margin-bottom: 0.5rem;
         }
 
-        .map-desc {
-            font-size: 0.875rem;
+        .construction-sub {
             color: #94a3b8;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* お知らせエリア */
+        .news-section, .comment-section {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-header {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #f472b6;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 0.5rem;
+        }
+
+        .news-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .news-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .news-badge {
+            background-color: #ec4899;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .news-text {
+            color: #e2e8f0;
+        }
+
+        /* コメントエリア */
+        .comment-form-container {
+            margin-bottom: 1.5rem;
+        }
+
+        .comment-box {
+            width: 100%;
+            height: 80px;
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 10px;
+            color: #f8fafc;
+            font-size: 0.95rem;
+            resize: none;
+            margin-bottom: 8px;
+        }
+
+        .comment-box:focus {
+            outline: none;
+            border-color: #ec4899;
+        }
+
+        .comment-submit-btn {
+            background-color: #ec4899;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            float: right;
+            transition: background-color 0.2s;
+        }
+
+        .comment-submit-btn:hover {
+            background-color: #db2777;
+        }
+
+        .login-notice {
+            background-color: #0f172a;
+            border: 1px dashed #334155;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-notice a {
+            color: #f472b6;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        .comment-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            clear: both;
+            padding-top: 10px;
+        }
+
+        .comment-item {
+            background-color: #0f172a;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            display: flex;
+            gap: 12px;
+        }
+
+        .comment-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #334155;
+        }
+
+        .comment-content {
+            flex: 1;
+        }
+
+        .comment-author {
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #f472b6;
+            margin-bottom: 4px;
+        }
+
+        .comment-text {
+            font-size: 0.95rem;
+            color: #e2e8f0;
             line-height: 1.4;
         }
     </style>
@@ -150,50 +287,56 @@
 <body>
 
     <header>
-        <a href="index.html" class="logo">🎮 Roblox Map Site</a>
+        <a href="index.html" class="logo">🌸 Sakura Studio</a>
         <div class="user-nav" id="userNav">
-            <!-- JavaScriptでログイン状態に応じて切り替わります -->
             <a href="login.html" class="login-btn">🔑 ログイン</a>
         </div>
     </header>
 
     <main>
-        <div class="map-grid">
-            <!-- サンプルマップカード 1 -->
-            <div class="map-card">
-                <div class="map-img" style="background: linear-gradient(135deg, #2563eb, #1d4ed8);"></div>
-                <div class="map-info">
-                    <div class="map-title">アスレチックワールド</div>
-                    <div class="map-desc">みんなで遊べる難易度高めのアスレチックマップです！</div>
-                </div>
-            </div>
+        <!-- 製作中カード -->
+        <div class="construction-card">
+            <div class="construction-icon">🚧</div>
+            <div class="construction-title">製作中</div>
+            <div class="construction-sub">ただいまサイトを準備しています。<br>公開まで今しばらくお待ちください！</div>
+        </div>
 
-            <!-- サンプルマップカード 2 -->
-            <div class="map-card">
-                <div class="map-img" style="background: linear-gradient(135deg, #059669, #047857);"></div>
-                <div class="map-info">
-                    <div class="map-title">街のRPGマップ</div>
-                    <div class="map-desc">広い街を探検できるリアルなRP用マップです。</div>
-                </div>
-            </div>
+        <!-- お知らせセクション -->
+        <div class="news-section">
+            <div class="section-header">📢 お知らせ</div>
+            <ul class="news-list">
+                <li class="news-item">
+                    <span class="news-badge">募集</span>
+                    <span class="news-text">【急募】Sakura Studioでは現在、一緒に開発・制作をしてくれる<b>制作者を大募集</b>しています！</span>
+                </li>
+                <li class="news-item">
+                    <span class="news-badge" style="background-color: #3b82f6;">情報</span>
+                    <span class="news-text">Webサイトを開設しました！ログイン機能をテスト中です。</span>
+                </li>
+            </ul>
+        </div>
 
-            <!-- サンプルマップカード 3 -->
-            <div class="map-card">
-                <div class="map-img" style="background: linear-gradient(135deg, #d97706, #b45309);"></div>
-                <div class="map-info">
-                    <div class="map-title">PVPバトルアリーナ</div>
-                    <div class="map-desc">白熱の対戦が楽しめる専用アリーナです。</div>
-                </div>
+        <!-- コメント（掲示板）セクション -->
+        <div class="comment-section">
+            <div class="section-header">💬 開発掲示板</div>
+            
+            <!-- ログイン状態によって表示が切り替わるエリア -->
+            <div id="commentFormArea"></div>
+
+            <!-- コメント一覧 -->
+            <div class="comment-list" id="commentList">
+                <!-- JavaScriptでここに投稿が追加されます -->
             </div>
         </div>
     </main>
 
     <script>
-        // ログイン状態の確認とナビゲーションの更新
         document.addEventListener('DOMContentLoaded', () => {
             const userNav = document.getElementById('userNav');
+            const commentFormArea = document.getElementById('commentFormArea');
             const savedUser = localStorage.getItem('robloxUser');
 
+            // 1. ログイン状態の確認と表示切り替え
             if (savedUser) {
                 const user = JSON.parse(savedUser);
                 userNav.innerHTML = `
@@ -203,8 +346,73 @@
                         <button onclick="logout()" class="logout-btn">ログアウト</button>
                     </div>
                 `;
+
+                // ログイン済みの場合はコメント入力フォームを表示
+                commentFormArea.innerHTML = `
+                    <div class="comment-form-container">
+                        <textarea id="commentText" class="comment-box" placeholder="制作者に応募したいメッセージや質問を書き込んでね！"></textarea>
+                        <button onclick="addComment()" class="comment-submit-btn">投稿する</button>
+                    </div>
+                `;
+            } else {
+                // 未ログインの場合はログインを促す案内を表示
+                commentFormArea.innerHTML = `
+                    <div class="login-notice">
+                        🔒 コメントを書き込むには <a href="login.html">ログイン</a> が必要です。
+                    </div>
+                `;
             }
+
+            // 2. コメント一覧の読み込み
+            loadComments();
         });
+
+        // コメント投稿処理
+        function addComment() {
+            const commentText = document.getElementById('commentText').value.trim();
+            if (!commentText) return alert('コメントを入力してください！');
+
+            const savedUser = JSON.parse(localStorage.getItem('robloxUser'));
+            const comments = JSON.parse(localStorage.getItem('studioComments') || '[]');
+
+            const newComment = {
+                author: savedUser.displayName,
+                avatar: savedUser.avatarUrl,
+                text: commentText
+            };
+
+            comments.unshift(newComment); // 新しい投稿を一番上に追加
+            localStorage.setItem('studioComments', JSON.stringify(comments));
+
+            document.getElementById('commentText').value = '';
+            loadComments();
+        }
+
+        // コメント一覧の表示処理
+        function loadComments() {
+            const commentList = document.getElementById('commentList');
+            const comments = JSON.parse(localStorage.getItem('studioComments') || '[]');
+
+            if (comments.length === 0) {
+                commentList.innerHTML = '<p style="color: #64748b; text-align: center; padding: 10px;">まだコメントはありません。</p>';
+                return;
+            }
+
+            commentList.innerHTML = comments.map(c => `
+                <div class="comment-item">
+                    <img src="${c.avatar}" class="comment-avatar">
+                    <div class="comment-content">
+                        <div class="comment-author">${c.author}</div>
+                        <div class="comment-text">${escapeHtml(c.text)}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 文字の安全化（HTMLエスケープ）
+        function escapeHtml(str) {
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        }
 
         // ログアウト処理
         function logout() {
