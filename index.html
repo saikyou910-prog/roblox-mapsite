@@ -3,72 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roblox トレードサイト - ホーム</title>
+    <title>Roblox Map Site</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px; display: flex; justify-content: center; }
-        .app-container { background-color: white; width: 100%; max-width: 450px; min-height: 500px; border-radius: 20px; padding: 20px; box-sizing: border-box; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
-        
-        /* ログインボタン（リンク） */
-        .btn-login { display: inline-block; padding: 10px 16px; background-color: white; border: 2px solid #54bbf0; color: #54bbf0; text-decoration: none; font-weight: bold; border-radius: 6px; }
-        .btn-login:hover { background-color: #54bbf0; color: white; }
-        
-        /* ログイン後のユーザー表示 */
-        .user-box { text-align: center; }
-        .avatar { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #54bbf0; }
-        .username { font-size: 12px; font-weight: bold; margin-top: 4px; }
-        .btn-logout { background: none; border: none; color: red; font-size: 11px; cursor: pointer; text-decoration: underline; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+
+        /* ヘッダーナビゲーション */
+        header {
+            background-color: #1e293b;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #38bdf8;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-nav {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .login-btn {
+            background-color: #2563eb;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        .login-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* ログイン済みのユーザープロファイル表示 */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #334155;
+            padding: 6px 14px;
+            border-radius: 20px;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #475569;
+            object-fit: cover;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .logout-btn {
+            color: #94a3b8;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-decoration: underline;
+            margin-left: 5px;
+        }
+
+        .logout-btn:hover {
+            color: #f87171;
+        }
+
+        /* メインコンテンツ */
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .map-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .map-card {
+            background-color: #1e293b;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #334155;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .map-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        .map-img {
+            width: 100%;
+            height: 160px;
+            background-color: #334155;
+            object-fit: cover;
+        }
+
+        .map-info {
+            padding: 15px;
+        }
+
+        .map-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #f1f5f9;
+        }
+
+        .map-desc {
+            font-size: 0.875rem;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
-        <div class="header">
-            <h2>🏠 ホーム画面</h2>
-            
-            <!-- ここにログインボタンまたはユーザー情報が入る -->
-            <div id="userArea"></div>
+    <header>
+        <a href="index.html" class="logo">🎮 Roblox Map Site</a>
+        <div class="user-nav" id="userNav">
+            <!-- JavaScriptでログイン状態に応じて切り替わります -->
+            <a href="login.html" class="login-btn">🔑 ログイン</a>
         </div>
+    </header>
 
-        <div style="background: #fafafa; padding: 15px; border-radius: 8px;">
-            <p>こんにちは！</p>
-            <p style="font-size: 12px; color: #666;">右上のボタンから別ページのログイン画面に移動できます。</p>
+    <main>
+        <div class="map-grid">
+            <!-- サンプルマップカード 1 -->
+            <div class="map-card">
+                <div class="map-img" style="background: linear-gradient(135deg, #2563eb, #1d4ed8);"></div>
+                <div class="map-info">
+                    <div class="map-title">アスレチックワールド</div>
+                    <div class="map-desc">みんなで遊べる難易度高めのアスレチックマップです！</div>
+                </div>
+            </div>
+
+            <!-- サンプルマップカード 2 -->
+            <div class="map-card">
+                <div class="map-img" style="background: linear-gradient(135deg, #059669, #047857);"></div>
+                <div class="map-info">
+                    <div class="map-title">街のRPGマップ</div>
+                    <div class="map-desc">広い街を探検できるリアルなRP用マップです。</div>
+                </div>
+            </div>
+
+            <!-- サンプルマップカード 3 -->
+            <div class="map-card">
+                <div class="map-img" style="background: linear-gradient(135deg, #d97706, #b45309);"></div>
+                <div class="map-info">
+                    <div class="map-title">PVPバトルアリーナ</div>
+                    <div class="map-desc">白熱の対戦が楽しめる専用アリーナです。</div>
+                </div>
+            </div>
         </div>
-    </div>
+    </main>
 
     <script>
-        // ページが開いたときにログイン情報を確認する処理
-        function checkLogin() {
-            const userArea = document.getElementById('userArea');
-            const isLoggedIn = localStorage.getItem('isLoggedIn');
-            const username = localStorage.getItem('username');
-            const userId = localStorage.getItem('userId');
+        // ログイン状態の確認とナビゲーションの更新
+        document.addEventListener('DOMContentLoaded', () => {
+            const userNav = document.getElementById('userNav');
+            const savedUser = localStorage.getItem('robloxUser');
 
-            if (isLoggedIn === 'true') {
-                // ログインしている場合：アイコンとユーザー名を表示
-                userArea.innerHTML = `
-                    <div class="user-box">
-                        <img class="avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=${userId}" alt="アバター">
-                        <div class="username">${username}</div>
-                        <button class="btn-logout" onclick="logout()">ログアウト</button>
+            if (savedUser) {
+                const user = JSON.parse(savedUser);
+                userNav.innerHTML = `
+                    <div class="user-profile">
+                        <img src="${user.avatarUrl}" alt="${user.displayName}" class="user-avatar">
+                        <span class="user-name">${user.displayName}</span>
+                        <button onclick="logout()" class="logout-btn">ログアウト</button>
                     </div>
                 `;
-            } else {
-                // 未ログインの場合：login.html へのリンクボタンを表示
-                userArea.innerHTML = `
-                    <a href="login.html" class="btn-login">🔑 ログイン</a>
-                `;
             }
-        }
+        });
 
         // ログアウト処理
         function logout() {
-            localStorage.clear(); // 保存データを消去
-            checkLogin(); // 表示を更新
+            localStorage.removeItem('robloxUser');
+            location.reload();
         }
-
-        // 初期実行
-        checkLogin();
     </script>
 </body>
 </html>
